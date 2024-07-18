@@ -1,10 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import Profile from "./Models/Profile.jsx";
+import TicTacToe from "./Models/TicTacToe.jsx";
+import ConnectFour from "./Models/ConnectFour.jsx";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+const ViewState = Object.freeze({
+  Default: 0,
+  AboutPage: 1,
+  TicTacToe: 2,
+  ConnectFour: 3,
+});
+
+function Toolbar({ setState }) {
+  function handleViewChange(state) {
+    setState(state);
+    window.scrollTo(0, 0);
+  }
+
+  return (
+    <div className="mainToolbar">
+      <button onClick={() => handleViewChange(ViewState.Default)}>
+        Default
+      </button>
+      <button onClick={() => handleViewChange(ViewState.AboutPage)}>
+        About
+      </button>
+      <button onClick={() => handleViewChange(ViewState.TicTacToe)}>
+        TicTacToe
+      </button>
+      <button onClick={() => handleViewChange(ViewState.ConnectFour)}>
+        Connect Four
+      </button>
+    </div>
+  );
+}
+
+function DefaultView() {
+  const [count, setCount] = useState(0);
 
   return (
     <>
@@ -29,7 +63,36 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
     </>
-  )
+  );
 }
 
-export default App
+function GetView({ state }) {
+  switch (state) {
+    case ViewState.AboutPage:
+      return <Profile />;
+
+    case ViewState.TicTacToe:
+      return <TicTacToe />;
+
+    case ViewState.ConnectFour:
+      return <ConnectFour />;
+
+    default:
+      return <DefaultView />;
+  }
+}
+
+function App() {
+  const [state, setState] = useState(0);
+
+  return (
+    <div>
+      <Toolbar setState={setState} />
+      <div className="childContent">
+        <GetView state={state} />
+      </div>
+    </div>
+  );
+}
+
+export default App;

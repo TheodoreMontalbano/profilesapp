@@ -1,8 +1,8 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
   text-align: center;
+  margin: 0 auto;
+  padding-top: 3em;
 }
 
 .logo {
@@ -39,4 +39,20 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.mainToolbar {
+  z-index: 1;
+  position: fixed;
+  top: 0px;
+  background-color: #d8d8d7;
+  width: 100%;
+  border: 3px solid black;
+  display: flex;
+  justify-content: left;
+}
+
+.mainToolbar button {
+  border-radius: 0;
+  border: 1px solid black;
 }
