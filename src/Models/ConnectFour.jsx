@@ -55,9 +55,7 @@ function checkUpperDiagonal(board) {
     let curr = el;
     let currVal = null;
     let count = 0;
-    console.log();
     do {
-      console.log(curr);
       let val = board[curr];
       if (val && val === currVal) {
         count++;
@@ -69,7 +67,7 @@ function checkUpperDiagonal(board) {
         count = 1;
       }
       curr = curr + 6 - 1;
-    } while (curr < 42 && !(curr in startSet) && !ret);
+    } while (curr < 42 && !startSet.has(curr) && !ret);
   });
   return ret;
 }
@@ -82,9 +80,7 @@ function checkLowerDiagonal(board) {
     let curr = el;
     let currVal = null;
     let count = 0;
-    console.log();
     do {
-      console.log(curr);
       let val = board[curr];
       if (val && val === currVal) {
         count++;
@@ -96,7 +92,7 @@ function checkLowerDiagonal(board) {
         count = 1;
       }
       curr = curr + 7;
-    } while (curr < 42 && !(curr in startSet) && !ret);
+    } while (curr < 42 && !startSet.has(curr) && !ret);
   });
   return ret;
 }
@@ -183,7 +179,6 @@ function isTie(squares) {
 }
 
 function calculateStatus(setStatus, currentBoard, moveNum) {
-  console.log("HI");
   if (isWinner(currentBoard)) {
     let winner = (moveNum + 1) % 2 === 0 ? "Red" : "Black";
     setStatus("Winner: " + winner);
